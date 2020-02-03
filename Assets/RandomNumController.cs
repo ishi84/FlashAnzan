@@ -1,33 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RandomNumController : MonoBehaviour {
 
-    //表示終了までの時間
-    private float totalTime = 3f;
     //各数字の表示時間
     private float numDisplayTime;
-    //
-    private float interval;
-    //桁数
-    private int digit = 3;
-    //表示個数
-    private int count = 5;
     //暗転時間
-    private float blackoutTime = 0.2f;
+    private float blackoutTime = 0.1f;
     //ランダム生成の最小、最大値
     private int numMin;
     private int numMax;
-
-    //ランダム生成した数字を入れるリスト
-    List<int> generatedNumberList;
-    //数字の合計値
-    private int correctAnswer;
+    //ランダム生成した数字のリスト
+    private List<int> generatedNumberList;
+    //生成した数字の合計値
+    private int generatedNumberSum;
 
     void Start() {
-        switch (digit) {
+        switch (GameParamManager.digit) {
             case 1:
                 numMin = 1;
                 numMax = 10;
@@ -41,47 +33,41 @@ public class RandomNumController : MonoBehaviour {
                 numMax = 1000;
                 break;
         }
-        generatedNumberList = new List<int>();
-        numDisplayTime = totalTime / count;
-        StartCoroutine("RandomNumGenerate");
+        this.generatedNumberList = new List<int>();
+        this.numDisplayTime = GameParamManager.totalTime / GameParamManager.count;
+        StartCoroutine(RandomNumGenerate());
     }
 
-    void Update() {
-        // interval += Time.deltaTime;
-        // if (interval >= 2) {
-        //     int x = Random.Range(10, 100);
-        //     GetComponent<Text>().text = x.ToString();
-        //     interval = 0;
-        // }
-    }
-
-    IEnumerator RandomNumGenerate() {
+    private IEnumerator RandomNumGenerate() {
         //count変数の数だけランダムな整数を生成
-        for (int i = 0; i < this.count; i++) {
-            int num = Random.Range(numMin, numMax);
-            Debug.Log(num);
+        for (int i = 0; i < GameParamManager.count; i++) {
+            int num = Random.Range(this.numMin, this.numMax);
             //生成した数字を一定秒数表示
             GetComponent<Text>().text = num.ToString();
-            yield return new WaitForSeconds(numDisplayTime - blackoutTime);
+            yield return new WaitForSeconds(this.numDisplayTime - this.blackoutTime);
             //一瞬数字を消す
             GetComponent<Text>().text = "";
-            yield return new WaitForSeconds(blackoutTime);
-            //数字をリストに追加
-            generatedNumberList.Add(num);
+            yield return new WaitForSeconds(this.blackoutTime);
+            //生成した数字をリストに追加
+            this.generatedNumberList.Add(num);
         }
-        Debug.Log("経過時間" + Time.time);
-        
         //生成した数字の合計を計算
-        foreach (int i in generatedNumberList)
-        {
-            correctAnswer += i;
+        foreach (int i in this.generatedNumberList) {
+            this.generatedNumberSum += i;
         }
-        Debug.Log(correctAnswer);
+        //数字の保存関数呼び出し
+        SaveGenerateNum();
+        //回答入力用シーン呼び出し
+        ChangeScene();
+    }
+    
+    //生成した数字の保存用関数
+    private void SaveGenerateNum() {
+        GameParamManager.generatedNumberList = this.generatedNumberList;
+        GameParamManager.generatedNumberSum = this.generatedNumberSum;
+    }
+
+    private void ChangeScene() {
+        SceneManager.LoadScene("AnswerScene");
     }
 }
-
-// １０級～７級 1桁 口数は級が上がるごとに4・6・8・10口  秒は級の口数と同様
-// ６級～２級   ２桁    口数は級が上がるごとに3・4・5・7・10    秒は級の口数と同様
-// １級～２段   ３桁    口数は級が上がるごとに5・7・10口    秒は級の口数と同様
-// ３段～8段    ３桁    口数１０口  秒は段が上がるごとに7・5・4.5・4・3.5・3秒
-// 9～10段  ３桁    口数15口    秒は段が上がるごとに4・3秒
