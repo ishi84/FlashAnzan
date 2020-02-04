@@ -1161,7 +1161,6 @@ GameObject:
   - component: {fileID: 876917387}
   - component: {fileID: 876917389}
   - component: {fileID: 876917388}
-  - component: {fileID: 876917390}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1226,17 +1225,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 876917386}
---- !u!114 &876917390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 876917386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c63e563fa6af4745b014c2b3732dffc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &882465672
 Prefab:
   m_ObjectHideFlags: 0
@@ -2010,6 +1998,12 @@ Prefab:
       value: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI, Version=1.0.0.0,
         Culture=neutral, PublicKeyToken=null
       objectReference: {fileID: 0}
+    - target: {fileID: 114227788605403462, guid: 2364d52e009f02d4082be3faf83dee0e,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: a6e6d12b873666540aa546cfce8d5b66,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2364d52e009f02d4082be3faf83dee0e, type: 2}
   m_IsPrefabParent: 0

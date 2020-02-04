@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public class AnswerNumController : MonoBehaviour {
 
@@ -14,13 +13,12 @@ public class AnswerNumController : MonoBehaviour {
     private string inputNum;
     private UnityEvent unityEvent;
 
-
     // Use this for initialization
     void Start() {
         inputNum = "";
         numDisplay = GameObject.Find("InputNumDisplay/Text").GetComponent<Text>();
-        unityEvent = new UnityEvent ();
-        unityEvent.AddListener (SaveAnswerNum);
+        unityEvent = new UnityEvent();
+        unityEvent.AddListener(SaveAnswerNum);
     }
 
     // Update is called once per frame
@@ -43,11 +41,15 @@ public class AnswerNumController : MonoBehaviour {
     }
 
     public void LoadResultScene() {
-        unityEvent.Invoke();
-        SceneManager.LoadScene("ResultScene");
+        if (this.inputNum.Length > 0) {
+            unityEvent.Invoke();
+            SceneManager.LoadScene("ResultScene");
+        }
     }
 
     public void SaveAnswerNum() {
-        GameParamManager.AnswerNum = int.Parse(this.inputNum);
+        if (this.inputNum.Length > 0) {
+            GameParamManager.AnswerNum = int.Parse(this.inputNum);
+        }
     }
 }

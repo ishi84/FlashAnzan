@@ -25,6 +25,6 @@ public class GameStartScript : MonoBehaviour {
 		StartGame();
 	}
 	private void StartGame() {
-		SceneManager.LoadScene("GameScene");
+		SceneManager.LoadScene("WaitingScene");
 	}
 }

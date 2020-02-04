@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/TitleScene.unity
     guid: b8a51b44b52bdfc4dac287350b33f483
   - enabled: 1
+    path: Assets/WaitingScene.unity
+    guid: 404f74f721f831f4980b6b13f2d7b9f3
+  - enabled: 1
     path: Assets/GameScene.unity
     guid: 995abd814b4c9b44fbf52761497cf6b8
   - enabled: 1

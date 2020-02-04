@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameParamManager : MonoBehaviour {
 
+	static public GameParamManager instance;
+
 	//桁数
 	public static int digit;
 	//表示個数
@@ -19,6 +21,11 @@ public class GameParamManager : MonoBehaviour {
 	public static int AnswerNum;
 
 	void Awake() {
-		DontDestroyOnLoad(gameObject);
+		if (instance == null) {
+			instance = this;
+			DontDestroyOnLoad(gameObject);
+		} else {
+			Destroy(gameObject);
+		}
 	}
 }

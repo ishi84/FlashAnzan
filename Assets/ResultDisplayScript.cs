@@ -11,11 +11,13 @@ public class ResultDisplayScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if(GameParamManager.generatedNumberSum == GameParamManager.AnswerNum) {
+			this.resultText.text = "〇正解";
+		} else {
+			this.resultText.text = "×不正解";
+		}
 		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		this.correctAnswerText.text = "解答：" + GameParamManager.generatedNumberSum.ToString();
+		this.inputAnswerText.text = "あなたの答え：" + GameParamManager.AnswerNum.ToString();
 	}
 }
